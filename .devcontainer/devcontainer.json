@@ -1,0 +1,38 @@
+{
+    "name": "Diacrit Devcontainer",
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "context": "..",
+        "target": "devcontainer"
+    },
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/developer/diacrit,type=bind",
+    "workspaceFolder": "/home/developer/diacrit",
+    "remoteUser": "developer",
+    "containerUser": "developer",
+    "overrideCommand": true,
+    "updateContentCommand": {
+        // Install Node deps
+        "node-deps": "cd /home/developer/diacrit && npm i"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode-remote.remote-ssh",
+                "eamodio.gitlens",
+                "yzhang.markdown-all-in-one",
+                "redhat.vscode-yaml",
+                "mikestead.dotenv",
+                "wdhongtw.gpg-indicator",
+                "foxundermoon.shell-format",
+                "github.vscode-pull-request-github",
+                "ms-azuretools.vscode-docker",
+                "ms-vscode.remote-repositories",
+                "mrmlnc.vscode-scss",
+                "pmneo.tsimporter",
+                "stringham.move-ts",
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint"
+            ]
+        }
+    }
+}
