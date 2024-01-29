@@ -132,3 +132,4 @@ dist
 # Custom stuff
 ts-dist
 web-dist
+db.sqlite3

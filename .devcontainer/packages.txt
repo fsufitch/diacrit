@@ -14,6 +14,7 @@ nodejs
 openssh-clients
 python3
 protobuf-compiler
+sqlite
 sudo
 tar
 vim
