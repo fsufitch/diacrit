@@ -4,6 +4,7 @@ import { Database, SqlJsStatic } from "sql.js";
 import SQL from "@diacrit/sql/runtime";
 import { setSyntheticTrailingComments } from "typescript";
 import { bindObject } from "@diacrit/common/sqlUtils";
+import { normalize } from "../common/normalization";
 
 export const T_WORDS = "words";
 export const C_LANGUAGE = "lang";
@@ -92,5 +93,36 @@ export class InMemorySQL {
     } finally {
       stmt.free();
     }
+  }
+
+  private findAlternativesQuery = `
+    SELECT ${C_WORD} FROM ${T_WORDS} WHERE ${C_LANGUAGE}=:language AND ${C_NORMALIZED}=:normalized
+  `;
+
+  findAlternatives(word: string, language: string): string[] {
+    this.status.push({
+      state: "pending",
+      pendingMessage: "finding alternatives",
+      pendingProgress: 0,
+      pendingStart: moment(),
+    });
+    const stmt = this.db.prepare(this.findAlternativesQuery);
+    bindObject(stmt, { language, normalized: normalize(word, language) });
+
+    const alternatives = new Array<string>();
+    while (stmt.step()) {
+      const alt = stmt.getAsObject().word;
+      if (!alt || typeof alt !== "string") {
+        console.warn("received invalid word", alt);
+        continue;
+      }
+      alternatives.push(alt);
+    }
+
+    stmt.free();
+    this.status.push({
+      state: 'connected'
+    })
+    return alternatives;
   }
 }

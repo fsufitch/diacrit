@@ -52,7 +52,7 @@ export const normalize = (word: string, language: string): string => {
     if (!normMap) {
         throw `unrecognized language: ${language}`
     }   
-    let output = word;
+    let output = word.toLowerCase();
     for (const original in normMap) {
       const searchExp = new RegExp(original, 'g');
       output = output.replace(searchExp, normMap[original])
