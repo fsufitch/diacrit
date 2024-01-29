@@ -4,6 +4,7 @@ import { readFile } from "fs/promises";
 import SQL from "@diacrit/sql/runtime";
 import readline from "node:readline/promises";
 import { LANGUAGES, normalize } from "@diacrit/common/normalization";
+import { stdin } from "process";
 
 const printAlternarives = (db: InMemorySQL, word: string, language: string) => {
   const alts = db.findAlternatives(word, language);
@@ -17,15 +18,13 @@ const main = async (_language: string, _wordsDbPath: string) => {
   const wordsData = await readFile(wordsDbPath);
   const db = new InMemorySQL(await SQL(), wordsData);
 
+  const interactive = !!process.stdin.isTTY;
   const stdinLines = readline.createInterface(
     process.stdin,
-    process.stderr,
-    undefined,
-    true
+    interactive ? process.stderr : undefined
   );
-  if (stdinLines.terminal) {
-    stdinLines.setPrompt("? ");
-  }
+  stdinLines.setPrompt(interactive ? "? " : "");
+  
   stdinLines.prompt();
   for await (const line of stdinLines) {
     const word = normalize(line.trim(), language);
@@ -37,7 +36,6 @@ const main = async (_language: string, _wordsDbPath: string) => {
     }
     stdinLines.prompt();
   }
-  console.log();
 };
 
 commander.program

@@ -28,7 +28,7 @@ export class InMemorySQL {
   readonly status = new RxStatus<ConnectionState>({ state: "disconnected" });
 
   constructor(protected SQL: SqlJsStatic, data?: Buffer) {
-    console.info("creating in-memory db");
+    // console.info("creating in-memory db");
     this.dbInstance = new this.SQL.Database(data);
     this.status.push({ state: "connected" });
   }
@@ -56,7 +56,7 @@ export class InMemorySQL {
     if (tableNames.includes(T_WORDS)) {
       console.debug("skipping schema init: already initialized");
     }
-    console.info("initializing schema");
+    // console.info("initializing schema");
     this.db.run(this.createSchemaQuery);
     this.status.push({ state: "connected" });
   }

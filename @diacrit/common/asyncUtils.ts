@@ -15,7 +15,6 @@ export function setOf<T>(
         const s = new Set<T>();
         for await (const it of aiter) {
           s.add(it);
-          console.log('add', it, s.size)
         }
         return s;
       })(iter as AsyncIterable<T>);

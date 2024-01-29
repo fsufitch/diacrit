@@ -7,12 +7,12 @@ export const detectRuntimeMode = () =>  Object.keys(global).includes('window') ?
 const initNodeMode = async function (): Promise<initSqlJs.SqlJsStatic> {
   try {
     await Promise.resolve();
-    console.info("initializing sql.js in Node mode");
+    // console.info("initializing sql.js in Node mode");
     const sql = await initSqlJs();
-    console.info("successfully initalized sql.js in Node mode");
+    // console.info("successfully initalized sql.js in Node mode");
     return sql;
   } catch (reason) {
-    console.info("failed initializing sql.js in Node mode; reason:", reason);
+    console.error("failed initializing sql.js in Node mode; reason:", reason);
     throw "failed initializing sql.js in Node mode";
   }
 };
