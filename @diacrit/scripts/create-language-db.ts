@@ -4,9 +4,6 @@ import SQL from "@diacrit/sql/runtime";
 
 import commander, { Argument } from "commander";
 import { constants as fsConstants, access,readFile, open } from "fs/promises";
-import { Readline } from "node:readline/promises";
-import path from "path";
-import { openStdin } from "process";
 import readline from 'node:readline/promises';
 
 const realMain = async (

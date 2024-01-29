@@ -3,6 +3,7 @@ import moment from "moment";
 import { Database, SqlJsStatic } from "sql.js";
 import SQL from "@diacrit/sql/runtime";
 import { setSyntheticTrailingComments } from "typescript";
+import { bindObject } from "@diacrit/common/sqlUtils";
 
 export const T_WORDS = "words";
 export const C_LANGUAGE = "lang";
@@ -76,11 +77,7 @@ export class InMemorySQL {
     let count = 0;
     try {
       for (const word of words) {
-        stmt.bind({
-          ":language": word.language,
-          ":word": word.word,
-          ":normalized": word.normalized,
-        });
+        bindObject(stmt, word as any);
         stmt.run();
         count++;
         this.status.push({ pendingProgress: count / words.length });
