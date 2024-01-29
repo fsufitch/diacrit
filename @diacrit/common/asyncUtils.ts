@@ -1,6 +1,6 @@
-export const isIterable = (obj: any): boolean => !!obj[Symbol.iterator];
-export const isAsyncIterable = (obj: any): boolean =>
-  !!obj[Symbol.asyncIterator];
+export const isIterable = (obj: unknown): boolean => !!(obj as never)[Symbol.iterator];
+export const isAsyncIterable = (obj: unknown): boolean =>
+  !!(obj as never)[Symbol.asyncIterator];
 
 export function setOf<T>(iter: Iterable<T>): Set<T>;
 export function setOf<T>(iter: AsyncIterable<T>): Promise<Set<T>>;

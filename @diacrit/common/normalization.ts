@@ -76,7 +76,7 @@ ro:
 
 export const LANGUAGE_NORMALIZATIONS: {
   [lang: string]: { [original: string]: string };
-} = yaml.load(NORMALIZATION_DATA) as any;
+} = yaml.load(NORMALIZATION_DATA) as never;
 
 export const LANGUAGES = Object.keys(LANGUAGE_NORMALIZATIONS);
 

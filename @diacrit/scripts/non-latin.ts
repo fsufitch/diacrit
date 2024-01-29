@@ -4,7 +4,6 @@ import readline from "node:readline/promises";
 
 import { CharacterSets } from "@diacrit/common/unicode";
 import { CodePoint } from "@diacrit/common/charset";
-import { setOf } from "@diacrit/common/asyncUtils";
 
 const readCodePoints = async function* (input: AsyncIterable<string>) {
   for await (let it of input) {

@@ -5,7 +5,7 @@ import _CharacterSet from "characterset";
 
 import { isAsyncIterable, isIterable } from "./asyncUtils";
 
-type CodePointable = string | number | Number;
+type CodePointable = string | number | CodePoint;
 
 export const isSingleCodePoint = (input: string) => {
   const cp = input.codePointAt(0);
@@ -16,7 +16,7 @@ export class CodePoint extends Number {
   constructor(input: CodePointable) {
     switch (true) {
       case input instanceof Number:
-        super(input.valueOf());
+        super(input.valueOf())
         break;
       case typeof input === "number":
         super(input);
@@ -44,7 +44,7 @@ export class CodePoint extends Number {
   static *streamOf(input: string) {
     let offset = 0;
     while (true) {
-      let cp = input.codePointAt(offset);
+      const cp = input.codePointAt(offset);
       if (cp === undefined) {
         break;
       }

@@ -1,8 +1,6 @@
 import { RxStatus } from "@diacrit/common/rxStatus";
 import moment from "moment";
 import { Database, SqlJsStatic } from "sql.js";
-import SQL from "@diacrit/sql/runtime";
-import { setSyntheticTrailingComments } from "typescript";
 import { bindObject } from "@diacrit/common/sqlUtils";
 import { normalize } from "../common/normalization";
 
@@ -78,7 +76,7 @@ export class InMemorySQL {
     let count = 0;
     try {
       for (const word of words) {
-        bindObject(stmt, word as any);
+        bindObject(stmt, word as never);
         stmt.run();
         count++;
         this.status.push({ pendingProgress: count / words.length });

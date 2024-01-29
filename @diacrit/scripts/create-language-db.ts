@@ -3,7 +3,7 @@ import { InMemorySQL } from "@diacrit/sql/inMemory";
 import SQL from "@diacrit/sql/runtime";
 
 import commander, { Argument } from "commander";
-import { constants as fsConstants, access,readFile, open } from "fs/promises";
+import { constants as fsConstants, open } from "fs/promises";
 import readline from 'node:readline/promises';
 
 const realMain = async (
